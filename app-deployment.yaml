@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-app
+  labels:
+    app: deployment_api
+spec:
+  selector:
+    matchLabels:
+      app: deployment_api
+      tier: frontend
+  replicas: 7
+  template:
+    metadata:
+      labels:
+        app: deployment_api
+        tier: frontend
+    spec:
+      containers:
+      - name: deployment-app-reticula
+        image: ivan18081/api:v1
+
+

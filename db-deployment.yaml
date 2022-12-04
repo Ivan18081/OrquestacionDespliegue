@@ -1,0 +1,30 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: deployment-db
+  labels:
+    db: database
+spec:
+  selector:
+    matchLabels:
+      db: database
+      tier: data
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        db: database
+        tier: data
+    spec:
+      containers:
+      - name: deployment-database
+        image: ivan18081/sqlimage:v1
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: db-vm
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: db-vm
+        persistentVolumeClaim:
+          claimName: db-pc
